@@ -1,0 +1,14 @@
+name = "earthre-sla-worker"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+
+# After `wrangler d1 create earthre-sla-db`, paste the returned database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "earthre-sla-db"
+database_id = "cb3f1348-5ab0-4f22-977b-11f24894ad93"
+
+[vars]
+# Comma-separated list of origins allowed to call this worker (your Pages URL).
+# Set to "*" while developing locally, then lock it down after you have your Pages domain.
+ALLOWED_ORIGIN = "*"
