@@ -24,6 +24,8 @@ header h1 {
 .upload-label { cursor: pointer; }
 .upload-result { color: #216e39; margin-top: 8px; }
 .upload-error { color: #b42318; }
+.upload-result-list { list-style: none; padding: 0; margin: 10px 0 0; font-size: 13px; }
+.upload-result-list li { padding: 3px 0; }
 .panel {
   background: white;
   border-radius: 8px;
