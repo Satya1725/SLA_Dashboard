@@ -1,10 +1,9 @@
 import { parseAndClean } from "./clean.js";
 
-
 function corsHeaders(env) {
   return {
     "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
-    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
 }
@@ -36,6 +35,9 @@ export default {
       }
       if (url.pathname === "/api/services" && request.method === "GET") {
         return await handleServices(env);
+      }
+      if (url.pathname === "/api/reset" && request.method === "DELETE") {
+        return await handleReset(env);
       }
       if (url.pathname === "/api/health") {
         return json({ ok: true }, env);
@@ -124,6 +126,22 @@ async function handleServices(env) {
     `SELECT DISTINCT service_id, service_name FROM checks ORDER BY service_id`
   ).all();
   return json({ services: results }, env);
+}
+
+/**
+ * Wipes every row from all three tables. This is a deliberately blunt,
+ * whole-dataset reset (matches the "fresh record" ask) -- not a per-upload
+ * undo. No auth on it, same as /api/upload; fine for a take-home, called
+ * out in the README as something to lock down before this ever handled
+ * real data.
+ */
+async function handleReset(env) {
+  await env.DB.batch([
+    env.DB.prepare("DELETE FROM checks"),
+    env.DB.prepare("DELETE FROM rejected_rows"),
+    env.DB.prepare("DELETE FROM uploads"),
+  ]);
+  return json({ ok: true, message: "all data cleared" }, env);
 }
 
 /**

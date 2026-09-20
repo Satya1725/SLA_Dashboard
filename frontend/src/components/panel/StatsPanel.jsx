@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStats } from "./api.js";
+import { getStats } from "../../api.js";
 
 export default function StatsPanel({ refreshKey, from, to }) {
   const [open, setOpen] = useState(true);

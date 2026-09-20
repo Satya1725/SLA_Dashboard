@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLogs } from "./api.js";
+import { getLogs } from "../../api.js";
 
 export default function LogsPanel({ refreshKey }) {
   const [serviceId, setServiceId] = useState("");

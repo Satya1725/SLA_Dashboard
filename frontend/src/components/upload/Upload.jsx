@@ -1,23 +1,31 @@
 import { useState } from "react";
-import { uploadCsv } from "./api.js";
+import { uploadCsv } from "../../api.js";
+import Loader from "../common/Loader.jsx";
+import CodeSlots from "../common/CodeSlots.jsx";
+import ThoughtLine from "../common/Thoughtline.jsx";
+
+const THOUGHTS = [
+  "Reading rows…",
+  "Normalizing timestamps to UTC…",
+  "Converting latency units…",
+  "Flagging duplicates and timeouts…",
+  "Writing to the database…",
+];
 
 export default function Upload({ onUploaded }) {
   const [status, setStatus] = useState("idle"); // idle | uploading | done | error
-  const [results, setResults] = useState([]); // one entry per file
-  const [error, setError] = useState(null);
+  const [total, setTotal] = useState(0);
+  const [results, setResults] = useState([]);
 
   async function handleFiles(e) {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
     setStatus("uploading");
-    setError(null);
+    setTotal(files.length);
     setResults([]);
 
     const completed = [];
-    // Uploaded one at a time, not in parallel: each upload does its own
-    // batch of D1 writes, and firing several at once risks interleaved
-    // writes against the same tables. Sequential is slower but safe.
     for (const file of files) {
       try {
         const res = await uploadCsv(file);
@@ -25,7 +33,7 @@ export default function Upload({ onUploaded }) {
       } catch (err) {
         completed.push({ filename: file.name, ok: false, error: err.message });
       }
-      setResults([...completed]); // update progressively as each file finishes
+      setResults([...completed]);
     }
 
     const anyFailed = completed.some((r) => !r.ok);
@@ -43,12 +51,18 @@ export default function Upload({ onUploaded }) {
           onChange={handleFiles}
           disabled={status === "uploading"}
         />
-        {status === "uploading"
-          ? `Uploading and processing… (${results.length} done)`
-          : "Choose one or more CSV files to upload"}
+        {status === "uploading" ? (
+          <Loader label="Uploading and processing…" />
+        ) : (
+          "Choose one or more CSV files to upload"
+        )}
       </label>
 
-      {results.length > 0 && (
+      <ThoughtLine lines={THOUGHTS} active={status === "uploading"} />
+
+      <CodeSlots total={total} results={results} />
+
+      {results.length > 0 && status !== "uploading" && (
         <ul className="upload-result-list">
           {results.map((r, i) => (
             <li key={i} className={r.ok ? "upload-result" : "upload-error"}>
@@ -60,7 +74,6 @@ export default function Upload({ onUploaded }) {
           ))}
         </ul>
       )}
-      {error && <p className="upload-error">{error}</p>}
     </div>
   );
 }

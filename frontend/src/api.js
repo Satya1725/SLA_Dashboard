@@ -31,3 +31,7 @@ export function getLogs({ service_id, from, to, page = 1, page_size = 50 } = {})
   params.set("page_size", page_size);
   return req(`/api/logs?${params.toString()}`);
 }
+
+export function resetAll() {
+  return req("/api/reset", { method: "DELETE" });
+}

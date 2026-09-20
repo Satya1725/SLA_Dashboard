@@ -83,8 +83,24 @@ one file:
 
 - **Live URL:** _fill in after deploying — see steps below_
 - **GitHub repo:** _push this folder and add the link here_
+- **Last verified live:** _fill in the date you actually check the URL loads and a CSV uploads/renders correctly, right before submitting_
 
-### Deploy steps (Cloudflare, free tier, no credit card required)
+Cloudflare's free tier (Workers + Pages + D1) has no time-based shutdown —
+unlike some other free tiers (e.g. Heroku's old free dynos, Render's free
+web services), this doesn't sleep or expire on its own, so the URL above
+should stay live indefinitely without redeploying. If it's ever down for
+any reason, redeploying is a single command once the repo is cloned and
+`wrangler login` is done:
+
+```bash
+# redeploy the function
+cd worker && wrangler deploy
+
+# redeploy the frontend
+cd frontend && npm run build && npx wrangler pages deploy dist --project-name earthre-sla-dashboard
+```
+
+### Deploy steps (first time, Cloudflare free tier, no credit card required)
 
 ```bash
 # 1. Install wrangler and log in (opens a browser to authorize)
