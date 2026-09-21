@@ -13,8 +13,6 @@ export default function App() {
   const [resetError, setResetError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Plain click just opens the confirm modal. Nothing is deleted unless
-  // "Yes" is clicked in the modal.
   function handleDeleteClick() {
     setModalOpen(true);
   }
@@ -41,7 +39,7 @@ export default function App() {
     <FadeContent duration={600}>
       <div className="app">
         <header className="app-header">
-          <h1>EarthRe — SLA Monitoring Dashboard</h1>
+          <h1>SLA Monitoring Dashboard</h1>
           <button
             className="delete-button"
             onClick={handleDeleteClick}

@@ -81,9 +81,9 @@ one file:
 
 ## 4. Live URL & running locally
 
-- **Live URL:** _fill in after deploying — see steps below_
-- **GitHub repo:** _push this folder and add the link here_
-- **Last verified live:** _fill in the date you actually check the URL loads and a CSV uploads/renders correctly, right before submitting_
+- **Live URL:** https://develop.earthre-sla-dashboard.pages.dev/
+- **GitHub repo:** https://github.com/Satya1725/SLA_Dashboard.git
+- **Last verified live:** 20 September 2026
 
 Cloudflare's free tier (Workers + Pages + D1) has no time-based shutdown —
 unlike some other free tiers (e.g. Heroku's old free dynos, Render's free

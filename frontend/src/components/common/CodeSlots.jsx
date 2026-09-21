@@ -1,9 +1,4 @@
-/**
- * A row of "slots" — one per file in the current upload batch — that fill
- * in as each file finishes processing. Purely a progress indicator; it
- * reflects `results` passed down from Upload.jsx, no state of its own.
- */
-export default function CodeSlots({ total, results }) {
+function CodeSlots({ total, results }) {
   if (!total) return null;
 
   const slots = Array.from({ length: total }, (_, i) => results[i] || null);
@@ -34,3 +29,5 @@ export default function CodeSlots({ total, results }) {
     </div>
   );
 }
+
+export default CodeSlots;

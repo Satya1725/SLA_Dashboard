@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
 
-/**
- * Hand-built equivalent of ReactBits' "Thought Line" micro interaction:
- * a single line of text that fades/slides out and is replaced by the next
- * line on a timer, giving the impression of a running thought process.
- * (Built from scratch rather than pulled from reactbits.dev directly --
- * that domain wasn't reachable to fetch the exact source from here. Swap
- * in the real component via `npx jsrepo add https://reactbits.dev/default/
- * Animations/ThoughtLine` later if you want the literal original.)
- */
 export default function ThoughtLine({ lines, active, intervalMs = 1400 }) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);

@@ -1,9 +1,4 @@
-/**
- * Simple confirm/cancel modal. Used as a second checkpoint after the
- * hold-button gesture completes, before actually calling /api/reset --
- * the hold prevents accidental triggers, this prevents "I held it but
- * didn't mean it" from being unrecoverable.
- */
+
 export default function ConfirmModal({ open, title, message, onConfirm, onCancel, confirmLabel = "Yes, delete", cancelLabel = "No, cancel" }) {
   if (!open) return null;
 
