@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import Upload from "./components/Upload/Upload.jsx";
-import StatsPanel from "./components/panel/LogsPanel.jsx";
+import StatsPanel from "./components/panel/StatsPanel.jsx";
 import LogsPanel from "./components/panel/LogsPanel.jsx";
 import FadeContent from "./components/common/Fadecontent.jsx";
-import ConfirmModal from "./components/common/DeleteButton.jsx";
+import ConfirmModal from "./components/common/ConfirmModal.jsx";
 import { resetAll } from "./api.js";
 
 export default function App() {

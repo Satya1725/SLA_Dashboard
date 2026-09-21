@@ -1,4 +1,3 @@
-
 export default function ConfirmModal({ open, title, message, onConfirm, onCancel, confirmLabel = "Yes, delete", cancelLabel = "No, cancel" }) {
   if (!open) return null;
 
